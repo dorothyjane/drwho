@@ -1,4 +1,4 @@
-var xhr = getData('http://localhost:8080/DoctorWhoTimeTravelJourneys.json');
+var xhr = getData('dorothyjw.github.io/drwho/DoctorWhoTimeTravelJourneys.json');
 // xhr.onload = parseData;
 // same thing
 xhr.addEventListener('load', function(){
