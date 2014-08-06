@@ -36,17 +36,24 @@ function startCircle(timeLine, journey, datePoints){
   context.stroke();
 
   drawTicks(timeLine, tickLength+25, '#212321');
-  drawTicks(datePoints, tickLength, '#747a74');
+  drawTicks(datePoints, tickLength + 20, '#747a74');
 
   var colour = '#4a78e5';
-  var min = timeLine[0].date;
-  var max = timeLine[timeLine.length - 1].date;
+  var min = datePoints[0].date;
+  var max = datePoints[datePoints.length - 1].date;
 
-  journey.forEach(function(dates, index){
+  journeyLines = journey.map(function(dates, index){
     var journeyLine = new Journey(dates, min, max);
 
     journeyLine.draw(context, colour);
     colour = incrementColour(colour, 150);
-
+    return journeyLine;
   });
-};
+
+  // console.table(journeyLines, ["from", "to", "anglefrom", "angleto"]);
+}
+var div = document.createElement('div');
+document.body.appendChild(div);
+canvas.addEventListener('mousemove', function (event) {
+  div.innerHTML = "X " +  event.pageX + " Y " + event.pageY
+});

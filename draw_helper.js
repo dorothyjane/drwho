@@ -11,8 +11,9 @@ function getLocationOnCircle(centerX, centerY, magnitude, radians){
 
 
 function drawTicks(data, tickLength, tickColour){
-  data.forEach(function(point, index){
+  var drawnticks = data.map(function(point, index){
     var angleInRadians = degreesToRadians(point.position);
+    console.log("point",point,"angel",angleInRadians);
     var tickStartPoint = getLocationOnCircle(centerX, centerY, radius, angleInRadians);
     var tickEndPoint = getLocationOnCircle(centerX, centerY, (radius + tickLength), angleInRadians);
 
@@ -36,7 +37,7 @@ function drawTicks(data, tickLength, tickColour){
       context.fillText(point.date, radius + tickLength + 10, 0);
       context.restore();
   });
-
+  console.table(drawnticks, ["angleInRadians"]);
 }
 
 // temporary colour changer from https://stackoverflow.com/questions/12934720/how-to-increment-decrement-hex-color-values-with-javascript-jquery
