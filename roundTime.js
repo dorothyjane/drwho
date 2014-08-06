@@ -11,12 +11,20 @@ var xhr = getData('http://localhost:8080/DoctorWhoTimeTravelJourneys.json');
 // same thing -- when it is loaded parse the data -- see data_parser_helper
 xhr.addEventListener('load', function(){
   var parsedData = parseData(xhr.responseText); //no more NANs -- still in order of his travel
-  var positiveDates = makeDateHash(parsedData); // just the tonfrom dates -- still in order of his travel
+  var positiveDates = makeDateHash(parsedData); // just the to & from dates -- still in order of his travel
   var listedDates = makeDateList(positiveDates);
-  var sortedDates = makeTimeLineOfVisits(listedDates); // points of travel in order of time
+  var sortedDates = makeTimeLineOfVisits(listedDates); // POP points of travel in order of time
   var equalTickTimeline = makeEqualSpacedTimeline(listedDates); // equal spaced ticks of time
-  startCircle(equalTickTimeline, positiveDates, sortedDates); // draw!
+  // console.log(positiveDates);
+  positiveDates.pop();
+  function draw(){
+    context.clearRect(0,0,canvas.width, canvas.height);
+    startCircle(equalTickTimeline, positiveDates, sortedDates); // draw!
+    window.requestAnimationFrame(draw);
+  };
+  draw();
 });
+
 
 function getData(url){
   xmlhttp = new XMLHttpRequest();
@@ -24,7 +32,6 @@ function getData(url){
   xmlhttp.send();
   return xmlhttp;
 }
-
 
 function startCircle(timeLine, journey, datePoints){
   var tickLength = 5;

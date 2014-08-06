@@ -1,14 +1,18 @@
 // JOURNEYYYYYYYY
 
 function Journey(dates, min, max){
-
+  this.colour = '#000000';
   this.from = dates.from;
   this.to = dates.to;
   this.angles = {};
-  this.angles.from = degreesToRadians(getPosition(Math.pow(Math.abs(min), 0.6),Math.pow(Math.abs(max), 0.6), Math.pow(dates.from, 0.6)));
-  debugger;
-  this.angles.to = degreesToRadians(getPosition(Math.pow(Math.abs(min), 0.6), Math.pow(Math.abs(max), 0.6), Math.pow(dates.to, 0.6)));
+  this.angles.from = degreesToRadians(getPosition(Math.pow(min, 0.6),Math.pow(max, 0.6), Math.pow(dates.from, 0.6)));
+  this.angles.to = degreesToRadians(getPosition(Math.pow(min, 0.6), Math.pow(max, 0.6), Math.pow(dates.to, 0.6)));
 
+  //console.log("jmin", Math.pow(min, 0.6), "jmax", Math.pow(max, 0.6))
+  this.anglefrom = this.angles.from;
+  this.angleto = this.angles.to;
+
+  // console.log( 'DATES FROM: ' + this.from + 'DATES TO: ' + this.to + ' ANGLES FROM ' + this.angles.from + ' ANGLES TO ' + this.angles.to);
   this.positions = {
     from: {
       point: getLocationOnCircle(centerX, centerY, radius, this.angles.from),
@@ -31,7 +35,7 @@ Journey.prototype.draw = function(context, colour) {
 
   context.beginPath();
   context.moveTo(this.positions.from.point.x, this.positions.from.point.y);
-  context.strokeStyle = colour;
+  context.strokeStyle = this.colour;
   context.lineWidth = 2;
   context.bezierCurveTo(
     this.positions.from.bezier.x,
@@ -40,10 +44,10 @@ Journey.prototype.draw = function(context, colour) {
     this.positions.to.bezier.y,
     this.positions.to.point.x,
     this.positions.to.point.y
-  )
+  );
 
   // context.lineTo(this.positions.to.point.x, this.positions.to.point.y);
-  console.log('from: ' + this.positions.from.point.x + ' ' + this.positions.from.point.y + ' to: ' + this.positions.to.point.x + ' ' + this.positions.to.point.y);
-  context.closePath();
+  // console.log('from: ' + this.positions.from.point.x + ' ' + this.positions.from.point.y + ' to: ' + this.positions.to.point.x + ' ' + this.positions.to.point.y);
   context.stroke();
+  context.closePath();
 };
